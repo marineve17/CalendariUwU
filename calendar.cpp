@@ -8,7 +8,30 @@
 using namespace std;
 
 string colourHeader, colourWeekends, colourDate, colourMessage;
-string colourText = "\x1B[38;2;247;247;247m";
+string colourText = "\x1B[38;2;237;237;237m";
+
+void getTheme() {
+    string theme;
+
+    cout << "Choose a theme for your calendar:\n";
+    cout << "   -" << "\x1B[38;2;255;243;196m" <<  " Cotton Candy\n";
+    cout << "   -" << "\x1B[38;2;167;251;252m" << " Blue" << "\x1B[0m" << endl;
+
+    getline(cin, theme);
+
+    if (theme == "cotton candy") {
+        colourHeader = "\x1B[38;2;255;243;196m";
+        colourWeekends = "\x1B[38;2;255;222;253m";
+        colourDate = "\x1B[38;2;216;165;250m";
+        colourMessage = "\x1B[38;2;216;165;250m";
+
+    } else if (theme == "blue") {
+        colourHeader = "\x1B[38;2;167;251;252m";
+        colourWeekends = "\x1B[38;2;105;245;199m";
+        colourDate = "\x1B[38;2;246;74;164m";
+        colourMessage = "\x1B[38;2;167;251;252m";
+    }
+}
 
 bool isLeap(int year) {
     if (((year % 4 == 0) && (year % 100 != 0)) || (year % 400 == 0)) {
@@ -193,103 +216,6 @@ void displayDay(vector<vector<int>> &v, int year, int month, int day) {
                 }  //printing calendar default
 }
 
-void displaymonth(vector<vector<int>> v, int year, int month, int d) {
-    int day = 0;
-    while (day < v[month].size()) {
-            int x = getDayOfWeek(month+1, year, day+1);
-
-            if (d == v[month][day]) {
-
-            if (day+1 == daysIn(month+1, year)) {  //spacing between months
-                if (x == 2) {
-                    cout << v[month][day] << "\n" << endl;
-                } else if ((x == 3) || (x == 4) || (x == 5) || (x == 6)) {
-                    cout << setw(5) << v[month][day] << "\n" << endl;
-                } else {
-                    cout << "\x1B[38;2;147;250;216m" << setw(5) << v[month][day] << "\x1B[0m" << "\n" << endl;
-                }
-
-            } else if (day == 0) {
-                switch (x) {  //aligning first row
-                    case (2):
-                        cout << " " << v[month][day];
-                        break; 
-                    case (3):
-                        cout << setw(7)  << v[month][day];
-                        break;
-                    case (4): 
-                        cout << setw(12) << v[month][day];
-                        break;
-                    case (5):
-                        cout << setw(17) << v[month][day];
-                        break;
-                    case (6):
-                        cout << setw(22) << v[month][day];
-                        break;
-                    case (0): 
-                        cout << "\x1B[38;2;147;250;216m" << setw(27) << v[month][day] << "\x1B[0m";
-                        break;
-                    case (1): 
-                        cout << "\x1B[38;2;147;250;216m" << setw(32) << v[month][day] << "\x1B[0m" << endl;
-                        break;
-                }
-
-            } else if (day < 9) { //aligning 1 digit numbers
-                    switch (x) {
-                        case (2):
-                            cout << " " << v[month][day];
-                            break;
-                        case (3): 
-                            cout << setw(5) << v[month][day];
-                            break;
-                        case (4):
-                            cout << setw(5) << v[month][day];
-                            break;
-                        case (5):
-                            cout << setw(5) << v[month][day];
-                            break;
-                        case (6): 
-                            cout << setw(5) << v[month][day];
-                            break;
-                        case (0): 
-                            cout << "\x1B[38;2;147;250;216m" << setw(5) << v[month][day] << "\x1B[0m";
-                            break;
-                        case (1):
-                            cout << "\x1B[38;2;147;250;216m" << setw(5) << v[month][day] << "\x1B[0m" << endl;
-                            break;
-                    } 
-
-            } else {
-                switch (x) {
-                    case (2):
-                        cout << v[month][day];
-                        break;
-                    case (3): 
-                        cout << setw(5) << v[month][day];
-                        break;
-                    case (4):
-                        cout << setw(5) << v[month][day];
-                        break;
-                    case (5):
-                        cout << setw(5) << v[month][day];
-                        break;
-                    case (6): 
-                        cout << setw(5) << v[month][day];
-                        break;
-                    case (0): 
-                        cout << "\x1B[38;2;147;250;216m" << setw(5) << v[month][day] << "\x1B[0m";
-                        break;
-                    case (1):
-                        cout << "\x1B[38;2;147;250;216m" << setw(5) << v[month][day] << "\x1B[0m" << endl;
-                        break;
-                    }
-                
-            }
-            day++;
-        }  //printing calendar default
-    }
-}
-
 void displayCalendar(vector<vector<int>> v, int year, int m, int d) {  //displays calendar
     for (int month = 0; month < 12; month++) {
         cout << colourHeader << month + 1 << "/" << year << " - " << monthsStr(month + 1) << "\x1B[0m" << endl; //displays month/year - <month name>
@@ -463,29 +389,6 @@ void newDates(vector<vector<int>> &v, int year) { //gets first date
         moreDates(v, year);
     }
 }   
-
-void getTheme() {
-    string theme;
-
-    cout << "Choose a theme for your calendar:\n";
-    cout << "   -" << "\x1B[38;2;255;243;196m" <<  " Cotton Candy\n";
-    cout << "   -" << "\x1B[38;2;167;251;252m" << " Blue" << "\x1B[0m" << endl;
-
-    getline(cin, theme);
-
-    if (theme == "cotton candy") {
-        colourHeader = "\x1B[38;2;255;243;196m";
-        colourWeekends = "\x1B[38;2;255;222;253m";
-        colourDate = "\x1B[38;2;216;165;250m";
-        colourMessage = "\x1B[38;2;216;165;250m";
-
-    } else if (theme == "blue") {
-        colourHeader = "\x1B[38;2;167;251;252m";
-        colourWeekends = "\x1B[38;2;105;245;199m";
-        colourDate = "\x1B[38;2;246;74;164m";
-        colourMessage = "\x1B[38;2;167;251;252m";
-    }
-}
 
 int main() {
     time_t now = time(0);
