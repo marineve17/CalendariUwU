@@ -30,6 +30,12 @@ void getTheme() {
         colourWeekends = "\x1B[38;2;105;245;199m";
         colourDate = "\x1B[38;2;246;74;164m";
         colourMessage = "\x1B[38;2;167;251;252m";
+
+    } else if (theme == "spoopy") {
+        colourHeader = "\x1B[38;2;161;3;252m";
+        colourWeekends = "\x1B[38;2;252;157;3m";
+        colourDate = "\x1B[38;2;3;252;15m";
+        colourMessage = "\x1B[38;2;3;252;15m";
     }
 }
 
@@ -341,7 +347,7 @@ void moreDates(vector<vector<int>> &v, int year) {  //gets more dates if request
                 cout << "\x1B[2J" << "\x1B[3J" << flush;
                 displayCalendar(v, year, month-1, day);
 
-                cout << "\x1B[38;2;166;247;243m" << day << ((day == 1) ? "st " : (day == 2) ? "nd " : (day == 3) ? "rd " : "th ") 
+                cout << colourMessage << day << ((day == 1) ? "st " : (day == 2) ? "nd " : (day == 3) ? "rd " : "th ") 
                      << monthsStr(month) << message << "\x1B[0m" << endl;
             }
 
@@ -380,6 +386,7 @@ void newDates(vector<vector<int>> &v, int year) { //gets first date
             cout << colourMessage << day << (((day == 11) || (day == 12) || (day == 13)) ? "th " : (day%10 == 1) ? "st " : (day%10 == 2) ? "nd " : (day%10 == 3) ? "rd " : "th ") 
                     << monthsStr(month) << message << "\x1B[0m" << endl;            
         }   
+        moreDates(v, year);
         
     } else if (option == "n") {
         cout << "See you soon!" << endl;
