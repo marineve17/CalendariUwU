@@ -332,7 +332,7 @@ void moreDates(vector<vector<int>> &v, int year) {  //gets more dates if request
     int day, month;
 
     while (valid) {
-        cout << "Do you want to another highlight a memory? (y/n)  ";  //should work by pressing enter
+        cout << "Do you want to highlight another a memory? (y/n)  ";  //should work by pressing enter
         cin >> option;
 
         if (option == "y") {
